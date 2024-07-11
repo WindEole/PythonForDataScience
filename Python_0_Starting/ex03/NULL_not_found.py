@@ -1,14 +1,23 @@
 import sys
 
+# ISINSTANCE
+#	Pour les NULL, le dictionnaire de l'exo précédent n'est pas approprié
+#	car trop de types sont problématiques : NoneType, Nan, etc...
+#	Pour cet exo, on utilise isinstance(object, type) : returns True if 
+#	the specified object is of the specified type, otherwise False.
+
 def NULL_not_found(object: any) -> int:
-	list_types = ["ft_list", "ft_tuple", "ft_set", "ft_dict", "str"]
-	var = str(any)
-	if (var) in list_types:
-		print(var, type(var))
-
-	
-	return 42 # ATTENTION ! retour 0 si succès, 1 si error
-
-# if __name__ == '__main__':	---> PAS BESOIN
-# 	if (sys.argv[0] == "./tester.py"):
-# 		print(42)
+	if object is None:
+		print(f"Nothing: {object} {type(object)}")
+	elif isinstance(object, float) and str(object) == 'nan':
+		print(f"Cheese: {object} {type(object)}")
+	elif isinstance(object, bool): # On met le bool avant int, sinon pas pris en charge !
+		print(f"Fake: {object} {type(object)}")
+	elif isinstance(object, int):
+		print(f"Zero: {object} {type(object)}")
+	elif isinstance(object, str) and object == '':
+		print(f"Empty: {object} {type(object)}")
+	else:
+		print("Type not found")
+		return 1
+	return 0
