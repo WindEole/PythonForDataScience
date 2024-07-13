@@ -1,4 +1,13 @@
-import sys
+def all_thing_is_obj(object: any) -> int:
+	my_type = {
+		list : f"List : {type(object)}",
+		tuple : f"Tuple : {type(object)}",
+		set : f"Set : {type(object)}",
+		dict : f"Dict : {type(object)}",
+		str : f"{object} is in the kitchen : {type(object)}"
+	}
+	print(my_type.get(type(object), "Type not found"))
+	return 42
 
 # object: any => le param objet peut être de n'importe quel type
 # -> int => la fonction retournera un entier !
@@ -15,28 +24,26 @@ import sys
 #	préfixées par la lettre f (ou F), ce qui permet d'évaluer des expressions
 #	à l'intérieur des accolades {} directement dans la chaîne.
 
-def all_thing_is_obj(object: any) -> int:
-	# On doit faire une corrélation entre le type de l'object (donné par type(object))
-	# et son en-tête de ligne pour affichage => dictionnaire !
-	type_dict = {
-		list: "List",
-		tuple: "Tuple",
-		set: "Set",
-		dict: "Dict",
-		str: "String",
-	}
-
-	obj_type = type(object)
-	type_name = type_dict.get(obj_type, "Type not found")
-	# get va aller cherche mon obj_type dans le dictionnaire. S'il le trouve,
-	# il le retourne, sinon il retourne "Type not found"
-	
-	if type_name != "Type not found":
-		if (type_name == "String"):
-			print(f"{object} is in the kitchen : {obj_type}")
-		else :
-			print(f"{type_name} : {obj_type}")
-	else:
-		print(type_name)
-
-	return 42
+# CECI N'EST PAS TRES PYTHON...
+# def all_thing_is_obj(object: any) -> int:
+# 	# On doit faire une corrélation entre le type de l'object (donné par type(object))
+# 	# et son en-tête de ligne pour affichage => dictionnaire !
+# 	type_dict = {
+# 		list: "List",
+# 		tuple: "Tuple",
+# 		set: "Set",
+# 		dict: "Dict",
+# 		str: "String",
+# 	}
+# 	obj_type = type(object)
+# 	type_name = type_dict.get(obj_type, "Type not found")
+# 	# get va aller cherche mon obj_type dans le dictionnaire. S'il le trouve,
+# 	# il le retourne, sinon il retourne "Type not found"
+# 	if type_name != "Type not found":
+# 		if (type_name == "String"):
+# 			print(f"{object} is in the kitchen : {obj_type}")
+# 		else :
+# 			print(f"{type_name} : {obj_type}")
+# 	else:
+# 		print(type_name)
+# 	return 42
