@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ft_package"
+version = "0.0.1"
+description = "Package for counting the number of lines in files"
+authors = [
+	{name = "iderighe", email = "iderighe@student.42.fr"}
+]
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["lines", "file", "count"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = []
+[tool.setuptools.packages.find]
