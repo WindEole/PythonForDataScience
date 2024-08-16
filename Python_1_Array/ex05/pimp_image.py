@@ -2,17 +2,18 @@ import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
 
+
 def ft_show_image(array, title):
     """Display Image."""
     res_im = Image.fromarray(array)
     try:
         plt.imshow(res_im)
         plt.title(title)
-        plt.axis("off") # Display l'image sans le référentiel
+        plt.axis("off")  # Display l'image sans le référentiel
         plt.show()
     except KeyboardInterrupt:
         print("\nProcess interrupted by user.")
-        plt.close() # ferme proprement la fenetre de display
+        plt.close()  # ferme proprement la fenetre de display
 
 
 def ft_invert(array) -> np.ndarray:
@@ -26,14 +27,15 @@ def ft_invert(array) -> np.ndarray:
     ft_show_image(invert_array, "Invert colors")
     return invert_array
 
+
 def ft_red(array) -> np.ndarray:
     """Apply a red filter on the image received."""
     # Consigne : on peut utiliser les operateurs =, *
     # Pour appliquer un filtre, on va jouer sur les canaux : mettre à 0 les
     # canaux vert et bleus et/ou intensifier le canal rouge (pas nécessaire)
-    red_array = np.copy(array) # copie pour conserver l'original intact
+    red_array = np.copy(array)  # copie pour conserver l'original intact
     # on réduit les canaux Green et Blue à 0 -> filtre rouge pur
-    red_array[:, :, 1] = red_array[:, :, 1] * 0 # OPERATION VECTORISEE
+    red_array[:, :, 1] = red_array[:, :, 1] * 0  # OPERATION VECTORISEE
     red_array[:, :, 2] = red_array[:, :, 2] * 0
 
     ft_show_image(red_array, "Red filter")
@@ -43,7 +45,7 @@ def ft_red(array) -> np.ndarray:
 def ft_green(array) -> np.ndarray:
     """Apply a green filter on the image received."""
     # Consigne : on peut utiliser les operateurs =, -.
-    green_array = np.copy(array) # copie pour conserver l'original intact
+    green_array = np.copy(array)
     # on réduit les deux autres canaux à 0 -> filtre vert pur
     green_array[:, :, 0] = green_array[:, :, 0] - green_array[:, :, 0]
     green_array[:, :, 2] = green_array[:, :, 2] - green_array[:, :, 2]
@@ -51,16 +53,18 @@ def ft_green(array) -> np.ndarray:
     ft_show_image(green_array, "Green filter")
     return green_array
 
+
 def ft_blue(array) -> np.ndarray:
     """Apply a blue filter on the image received."""
     # Consigne : on ne peut utiliser que l'operateur =.
-    blue_array = np.copy(array) # copie pour conserver l'original intact
+    blue_array = np.copy(array)
     # on réduit les deux autres canaux à 0 -> filtre bleu pur
-    blue_array[:, :, 0] = 0 # Assignation a 0 avec =
+    blue_array[:, :, 0] = 0  # Assignation a 0 avec =
     blue_array[:, :, 1] = 0
 
     ft_show_image(blue_array, "Blue filter")
     return blue_array
+
 
 def ft_grey(array) -> np.ndarray:
     """Apply a grey filter on the image received."""

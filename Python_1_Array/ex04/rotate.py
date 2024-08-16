@@ -2,6 +2,7 @@ import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
 
+
 def ft_rotate(path: str) -> np.ndarray:
     """Rotate an image.
 
@@ -49,7 +50,10 @@ def ft_rotate(path: str) -> np.ndarray:
         print(f"Error: Unsupported image mode {mode}.")
         return None
 
-    print(f"The shape of image is: ({height}, {width}, {num_channels}) or ({height}, {width}))")
+    print(
+        f"The shape of image is: ({height}, {width}, {num_channels}) or "
+        f"({height}, {width}))"
+    )
     # On recupère le canal RED, mais on ajoute une dimension au tableau (0:1)
     im_array_red = im_array_sliced[:, :, 0:1]
     print(im_array_red)
@@ -63,7 +67,7 @@ def ft_rotate(path: str) -> np.ndarray:
         plt.title("Zoomed Image (Grayscale)")
         plt.xlabel("x (width)")
         plt.ylabel("y (height)")
-        # Inverser l'axe Y pour correspondre à la convention d'affichage des images
+        # Inverser l'axe Y pour correspondre à la convention d'affichage images
         # plt.gca().invert_yaxis() => pas besoin !
         # Afficher une grille
         # plt.grid(True)
@@ -71,6 +75,6 @@ def ft_rotate(path: str) -> np.ndarray:
         plt.show()
     except KeyboardInterrupt:
         print("\nProcess interrupted by user.")
-        plt.close() # ferme proprement la fenetre de display
+        plt.close()  # ferme proprement la fenetre de display
 
     return (im_array_sliced)
