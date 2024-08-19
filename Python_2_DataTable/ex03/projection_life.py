@@ -33,6 +33,16 @@ def display(data_le: pd.DataFrame, data_inc: pd.DataFrame, year: str) -> None:
     le_filtered = data_le_melted[data_le_melted["year"] == int(year)]
     inc_filtered = data_inc_melted[data_inc_melted["year"] == int(year)]
 
+    # On va quand même vérifier qu'on a les mêmes pays dans les 2 DataFrames
+    only_in_le = set(le_filtered["country"]) - set(inc_filtered["country"])
+    only_in_inc = set(inc_filtered["country"]) - set(le_filtered["country"])
+
+    # Affichage des résultats
+    if only_in_le:
+        print(f"Countries only in life expectancy for {year}: {only_in_le}")
+    if only_in_inc:
+        print(f"Countries only in income data for {year}: {only_in_inc}")
+
     # Fusion des deux dataFrames sur les colonnes country et year
     merged_data = pd.merge(le_filtered, inc_filtered, on=["country", "year"])
 
