@@ -24,6 +24,9 @@ def display(data: pd.DataFrame, country1: str, country2: str) -> None:
     country2_data.columns = [country2]  # On renomme la colonne
     country2_data.index = pd.to_datetime(country2_data.index, format="%Y")
 
+    # ATTENTION : Dans le fichier.csv, on a des valeurs notées 40.2M ou 405k,
+    # ou 5830 (Marshall Islands, Tuvalu...) -> Chaîne de caratères !
+    # Il faut convertir en nombre, en faisant attention au nb de 0...
     # Conversion des valeurs formatées avec "M" ou "k" en valeurs numériques
     country1_data[country1] = pd.to_numeric(country1_data[country1].replace(
         {"M": "e6", "k": "e3"}, regex=True)
@@ -34,6 +37,19 @@ def display(data: pd.DataFrame, country1: str, country2: str) -> None:
 
     # Fusionner les deux DataFrames sur les années
     combined_data = pd.concat([country1_data, country2_data], axis=1)
+
+    # DYNAMIC FORMATTER pour l'axe Y
+    # Déterminer la valeur maximale pour ajuster l'affichage de l'axe Y
+    max_value = combined_data.max().max()
+
+    # Création du formatteur dynamique
+    def dynamic_formatter(x, _):
+        if max_value >= 1e6:
+            return f"{x * 1e-6:.1f}M"
+        elif max_value >= 1e3:
+            return f"{x * 1e-3:.1f}k"
+        else:
+            return f"{x:.0f}"
 
     # Affichage du graphique avec un référentiel
     try:
@@ -54,11 +70,21 @@ def display(data: pd.DataFrame, country1: str, country2: str) -> None:
         plt.title("Population Projections")
         plt.xlabel("Year")
         plt.ylabel("Population")
-        plt.legend(loc="lower right")  # Ajoute une légende
+        plt.legend(loc="lower right")  # Ajoute une légende, placée à loc
 
         # Ajuster la graduation de l'axe y pour afficher des valeurs en million
+        # NON ! trop rigide. On va faire un dynamic formatter sur l'axe Y pour
+        # que la graduation s'adapte à la grandeur de la population
+        # plt.gca().get_yaxis().set_major_formatter(
+        #     plt.FuncFormatter(lambda x, _: f"{x * 1e-6:.1f}M")
+        # )
+        # lambda x, _: -> on utilise un Formatter de Matplotlib qui est
+        # susceptible d'envoyer un 2eme argument. On doit donc le prévoir dans
+        # la fct lambda, mais on l'ignore grâce à la notation _.
+
+        # Appliquer le formatteur dynamique sur l'axe Y
         plt.gca().get_yaxis().set_major_formatter(
-            plt.FuncFormatter(lambda x, _: f"{x * 1e-6:.1f}M")
+            plt.FuncFormatter(dynamic_formatter),
         )
 
         # Limiter l'affichage de l'axe x
