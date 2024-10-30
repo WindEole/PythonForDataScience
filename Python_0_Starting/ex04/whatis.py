@@ -15,10 +15,10 @@ if __name__ == "__main__":
             assert (
                 len(sys.argv) == 2
             ), "AssertionError: more than one argument is provided"
-            assert (
-                sys.argv[1].isdigit()
-            ), "AssertionError: argument is not an integer"
-            num = int(sys.argv[1])
+            try:
+                num = int(sys.argv[1])
+            except ValueError:
+                raise AssertionError("AssertionError: argument is not an integer")
             if (num % 2) == 0:
                 print("I am even")
             else:
