@@ -1,4 +1,5 @@
 import sys
+from ft_filter import ft_filter
 
 # methode ALL(ITERABLE)
 # 	built-in function that returns TRUE if all of the items of an iterable
@@ -18,7 +19,7 @@ def main(param):
     string, length = param  # on déploie le tuple
     words = string.split()  # on divise la chaine en mots
 
-    filtered_words = list(filter(lambda word: len(word) > length, words))
+    filtered_words = list(ft_filter(lambda word: len(word) > length, words))
     print(filtered_words)
 
 
